@@ -1,6 +1,6 @@
 import { useEffect, useState, useReducer } from "react";
 import { db } from "../firebase/config";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc,serverTimestamp } from "firebase/firestore";
 
 const baslangicVeri = {
     belge: null,
@@ -34,7 +34,8 @@ export const useFirestore = (col) => {
     const belgeEkle = async (belge) => {
         dispatch({ type: 'BEKLIYOR' })
         try {
-            const eklenenBelge = await addDoc(ref, belge)
+            const olusturulmaTarih=serverTimestamp();
+            const eklenenBelge = await addDoc(ref, {...belge,olusturulmaTarih})
             if (!iptal) {
                 dispatch({ type: 'BELGE_EKLENDI', payload: eklenenBelge })
             }
