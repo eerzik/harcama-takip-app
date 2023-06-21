@@ -41,7 +41,7 @@ export default function Signup() {
 
                 <FormControl fullWidth sx={{ mt: 5 }} >
                     <InputLabel htmlFor="email" >Email</InputLabel>
-                    <OutlinedInput id="email" label="Email" value={values.email} onChange={handleChange('email')}  ></OutlinedInput>
+                    <OutlinedInput id="email" label="Email" autoComplete='on' value={values.email} onChange={handleChange('email')}  ></OutlinedInput>
                 </FormControl>
 
                 <FormControl fullWidth sx={{ mt: 5 }} >
@@ -58,7 +58,7 @@ export default function Signup() {
 
                 <FormControl fullWidth sx={{ my: 5 }} >
                     <InputLabel htmlFor="user-name" >Kullanıcı Ad</InputLabel>
-                    <OutlinedInput id="user-name" label="Kullanıcı Ad" value={values.userName} onChange={handleChange('userName')}  ></OutlinedInput>
+                    <OutlinedInput id="user-name" label="Kullanıcı Ad" value={values.userName} autoComplete='on' onChange={handleChange('userName')}  ></OutlinedInput>
                 </FormControl>
 
                 {!bekliyor &&

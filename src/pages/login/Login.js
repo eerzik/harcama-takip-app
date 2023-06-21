@@ -36,7 +36,7 @@ export default function Login() {
 
                 <FormControl fullWidth sx={{ mt: 5 }} >
                     <InputLabel htmlFor="email" >Email</InputLabel>
-                    <FilledInput id="email" label="Email" value={values.email} onChange={handleChange('email')}  ></FilledInput>
+                    <FilledInput id="email" label="Email" value={values.email} autoComplete='on' onChange={handleChange('email')}  ></FilledInput>
                 </FormControl>
 
                 <FormControl fullWidth sx={{ my: 5 }} >
