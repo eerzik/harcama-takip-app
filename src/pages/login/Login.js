@@ -2,8 +2,11 @@ import './Login.module.css'
 import { Container, Typography, Button, FormControl, FilledInput, InputLabel, InputAdornment, IconButton } from '@mui/material'
 import { useState } from 'react'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
+import { useLogin } from '../../hooks/useLogin'
 
 export default function Login() {
+
+    const { login, hata, bekliyor } = useLogin();
 
     const [values, setValues] = useState({
         email: '',
@@ -17,7 +20,8 @@ export default function Login() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(values);
+        // console.log(values);
+        login(values.email, values.password);
     }
 
     const handleClickShowPassword = () => {
@@ -42,18 +46,29 @@ export default function Login() {
                 <FormControl fullWidth sx={{ my: 5 }} >
                     <InputLabel htmlFor="password" >Parola</InputLabel>
                     <FilledInput type={values.showPassword ? 'text' : 'password'} autoComplete='off' id="password" value={values.password} onChange={handleChange('password')} label="Parola" endAdornment={
-                            <InputAdornment position='end' >
-                                <IconButton aria-label='Toogle Password' onClick={handleClickShowPassword} edge="end" >
-                                    {values.showPassword ? <VisibilityOff /> : <Visibility />}
-                                </IconButton>
-                            </InputAdornment>
-                        }  >
+                        <InputAdornment position='end' >
+                            <IconButton aria-label='Toogle Password' onClick={handleClickShowPassword} edge="end" >
+                                {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                            </IconButton>
+                        </InputAdornment>
+                    }  >
 
                     </FilledInput>
                 </FormControl>
-                <Button variant='outlined' type='submit' color='info' size='large' sx={{ mt: 5 }} >
-                    GİRİŞ
-                </Button>
+                {bekliyor &&
+                    <Button variant='outlined' disabled type='submit' color='info' size='large' sx={{ mt: 5 }} >
+                        BEKLİYOR...
+                    </Button>
+                }
+                {!bekliyor &&
+                    <Button variant='outlined' type='submit' color='info' size='large' sx={{ mt: 5 }} >
+                        GİRİŞ
+                    </Button>
+                }
+
+                {hata && 
+                <p>{hata}</p>
+                }
             </form>
         </Container>
     )
