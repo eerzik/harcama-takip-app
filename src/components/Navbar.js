@@ -5,10 +5,13 @@ import Typography from '@mui/material/Typography'
 import Toolbar from '@mui/material/Toolbar'
 import Button from '@mui/material/Button'
 import { Link } from 'react-router-dom'
-
+import { useLogout } from '../hooks/useLogout'
 
 
 export default function Navbar() {
+
+    const {logout}=useLogout();
+
     return (
         <Box sx={{ flexGrow: 1 }} >
             <AppBar position='static' color='primary'>
@@ -16,11 +19,17 @@ export default function Navbar() {
                     <Typography variant='h6' component="div" sx={{ flexGrow: 1 }}  >
                         <Link component='button' to="/" className={styles.link} >Harcama Takip App</Link>
                     </Typography>
+
                     <Button variant='outlined' color='inherit' >
                         <Link component='button' className={styles.link} to="/login"  > GİRİŞ </Link>
                     </Button>
+
                     <Button variant='text' color='secondary' >
                         <Link component='button' className={styles.link} to="/signup"  > Üye Ol </Link>
+                    </Button>
+
+                    <Button variant='contained' color='secondary' onClick={logout} sx={{ml:5}} >
+                        Çıkış
                     </Button>
                 </Toolbar>
             </AppBar>
