@@ -3,8 +3,11 @@ import { Container, Typography, Button, FormControl, FilledInput, InputLabel, In
 import { useState } from 'react'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
 import { useLogin } from '../../hooks/useLogin'
+import { useNavigate } from 'react-router-dom'
 
 export default function Login() {
+
+    const navigate=useNavigate();
 
     const { login, hata, bekliyor } = useLogin();
 
@@ -22,6 +25,7 @@ export default function Login() {
         e.preventDefault();
         // console.log(values);
         login(values.email, values.password);
+        navigate('/');
     }
 
     const handleClickShowPassword = () => {
