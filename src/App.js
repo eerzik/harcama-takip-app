@@ -4,20 +4,29 @@ import Login from "./pages/login/Login";
 import Signup from "./signup/Signup";
 import Navbar from "./components/Navbar";
 import Container from "@mui/material/Container";
+import { useAuthContext } from "./hooks/useAuthContext";
 
 function App() {
+
+  const { authIsReady } = useAuthContext();
+
+
+
   return (
     <div className="App">
-      <BrowserRouter>
-        <Navbar />
-        <Container>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
-          </Routes>
-        </Container>
-      </BrowserRouter>
+      {authIsReady && (
+        <BrowserRouter>
+          <Navbar />
+          <Container>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<Signup />} />
+            </Routes>
+          </Container>
+        </BrowserRouter>
+      )}
+
     </div>
   );
 }
