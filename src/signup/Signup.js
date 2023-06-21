@@ -1,17 +1,18 @@
-
-
 import './Signup.module.css'
 import { Container, Typography, Button, FormControl, OutlinedInput, InputLabel, InputAdornment, IconButton } from '@mui/material'
 import { useState } from 'react'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
+import { useSignup } from '../hooks/useSignup'
 
 export default function Signup() {
+
+    const { signup, hata, bekliyor } = useSignup();
 
     const [values, setValues] = useState({
         email: '',
         password: '',
         showPassword: false,
-        userName:''
+        userName: ''
     })
 
     const handleChange = (prop) => (event) => {
@@ -20,7 +21,8 @@ export default function Signup() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(values);
+        // console.log(values);
+        signup(values.email, values.password, values.userName);
     }
 
     const handleClickShowPassword = () => {
@@ -34,7 +36,7 @@ export default function Signup() {
         <Container>
             <form onSubmit={handleSubmit} >
                 <Typography sx={{ mt: 15, ml: 5, fontWeight: 'bold' }} variant='h4' color={'darkslateblue'} >
-                   Üye Ol
+                    Üye Ol
                 </Typography>
 
                 <FormControl fullWidth sx={{ mt: 5 }} >
@@ -45,12 +47,12 @@ export default function Signup() {
                 <FormControl fullWidth sx={{ mt: 5 }} >
                     <InputLabel htmlFor="password" >Parola</InputLabel>
                     <OutlinedInput type={values.showPassword ? 'text' : 'password'} autoComplete='off' id="password" value={values.password} onChange={handleChange('password')} label="Parola" endAdornment={
-                            <InputAdornment position='end' >
-                                <IconButton aria-label='Toogle Password' onClick={handleClickShowPassword} edge="end" >
-                                    {values.showPassword ? <VisibilityOff /> : <Visibility />}
-                                </IconButton>
-                            </InputAdornment>
-                        }  >
+                        <InputAdornment position='end' >
+                            <IconButton aria-label='Toogle Password' onClick={handleClickShowPassword} edge="end" >
+                                {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                            </IconButton>
+                        </InputAdornment>
+                    }  >
                     </OutlinedInput>
                 </FormControl>
 
@@ -59,9 +61,21 @@ export default function Signup() {
                     <OutlinedInput id="user-name" label="Kullanıcı Ad" value={values.userName} onChange={handleChange('userName')}  ></OutlinedInput>
                 </FormControl>
 
-                <Button variant='contained' type='submit' color='info' size='large' sx={{ mt: 5 }} >
-                    Üye Ol
-                </Button>
+                {!bekliyor &&
+                    <Button variant='contained' type='submit' color='info' size='large' sx={{ mt: 5 }} >
+                        Üye Ol
+                    </Button>
+                }
+
+                {bekliyor &&
+                    <Button variant='contained' disabled type='submit' color='info' size='large' sx={{ mt: 5 }} >
+                        Bekliyor
+                    </Button>
+                }
+                {hata &&
+                <p>{hata}</p>
+                }
+
             </form>
         </Container>
     )
