@@ -13,6 +13,7 @@ export const useLogin = () => {
 
     useEffect(() => {
         return () => setIptal(true)
+  
     }, [])
 
     const login = async (email, password) => {
@@ -21,7 +22,7 @@ export const useLogin = () => {
 
         try {
             const res = await signInWithEmailAndPassword(auth, email, password)
-            console.log(res.user)
+            //console.log(res.user)
             if (!res) {
                 throw new Error("Login işleminde hata oldu");
             }

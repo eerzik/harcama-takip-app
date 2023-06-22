@@ -1,9 +1,13 @@
 import { Container, Grid, Paper } from '@mui/material'
 import Form from './Form'
 import './Home.module.css'
+import {useAuthContext} from '../../hooks/useAuthContext'
 
 
 export default function Home() {
+
+    const {user} =useAuthContext();
+
     return (
         <div>
             <Container sx={{ mt: 8 }} >
@@ -12,7 +16,7 @@ export default function Home() {
                         <Paper>Liste</Paper>
                     </Grid>
                     <Grid item md={4} sm={12} xs={12} >
-                        <Form/>
+                        <Form uid={user.uid} />
                     </Grid>
                 </Grid>
             </Container>

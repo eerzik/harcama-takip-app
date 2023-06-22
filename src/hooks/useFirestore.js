@@ -32,7 +32,9 @@ export const useFirestore = (col) => {
     const ref = collection(db, col)
 
     const belgeEkle = async (belge) => {
+
         dispatch({ type: 'BEKLIYOR' })
+        
         try {
             const olusturulmaTarih=serverTimestamp();
             const eklenenBelge = await addDoc(ref, {...belge,olusturulmaTarih})
@@ -52,6 +54,7 @@ export const useFirestore = (col) => {
 
     useEffect(() => {
         return () => setIptal(true)
-    })
+    },[])
+
     return { belgeEkle, belgeSil, response }
 }
