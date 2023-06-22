@@ -1,12 +1,12 @@
 import { useState, useEffect, useRef } from "react";
 import { db } from "../firebase/config";
-import { onSnapshot, collection, query, where } from "firebase/firestore";
+import { onSnapshot, collection, query, where,orderBy } from "firebase/firestore";
 
-export const useCollection = (col, _query) => {
+export const useCollection = (col, _query,_orderBy) => {
     const [belgeler, setBelgeler] = useState(null)
     const [hata, setHata] = useState(null)
     const q = useRef(_query).current;
-    
+    const oBy=useRef(_orderBy).current;
     //console.log("sorgu",q);
    
     useEffect(() => {
@@ -14,6 +14,9 @@ export const useCollection = (col, _query) => {
         
         if(q){
             ref=query(ref,where(...q))
+        }
+        if(oBy){
+            ref=query(ref,orderBy(...oBy));
         }
 
         const unsubscribe = onSnapshot(ref, snapshot => {
@@ -29,7 +32,7 @@ export const useCollection = (col, _query) => {
         })
 
         return () => unsubscribe()
-    }, [col])
+    }, [col,q,oBy])
 
     return { belgeler, hata }
 }
