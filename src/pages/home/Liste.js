@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { ListItemText, ListItem, List, Divider, IconButton, Icon } from '@mui/material';
+import { ListItemText, ListItem, List, Divider, IconButton } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 export default function Liste({ harcamalar }) {
